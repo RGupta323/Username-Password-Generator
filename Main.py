@@ -7,6 +7,24 @@ import sys
 def isSet(aString): 
     return (aString[0]=="-" and aString[1]=="{" and aString[-1]=="}")
 
+
+
+#boolean functions to determine is a particular string has letters, numbers or symbols. 
+#In this way we can determine when judge() returns false for any key if that false is value is indeed a set or the user 
+#didn't put it there, so for example gen username -numbers -symbols and gen username -{abcdefghijklmnopqrstuvwxyz} -numbers -symbols
+#are different commands. 
+def isLetters(alist): 
+    #return (("-letters" in alist[i]) or (isSet(alist[i])) or alist[i].isalpha())
+    return (any(["-letters" in element or isSet(element) or element.isalpha() for element in alist]))
+
+def isNumbers(alist): 
+    #return (("-numbers" in alist[i]) or (isSet(alist[i]))); 
+    return (any(["-numbers" in element or isSet(element) or element.isdigit() for element in alist]))
+
+def isSymbols(alist): 
+    #return (("-symbols" in alist[i]) or (isSet(alist[i]))); 
+    return (any(["-symbols" in element or isSet(element) or (not element.isalpha() and not element.isdigit()) for element in alist]))
+
 #function to take into a list and return a tuple indicating how many stuff is there: -letters -numbers -symbols the tuple would be (3,0)
 #but if there are sets then that number would be counted as well so: gen username -letters -numbers -{!@#$} the function would return 
 #(2,1); 
@@ -20,10 +38,14 @@ def judge(aString,arg):
     return lis; """
     #now going to be modified so that it's a longer list which has a length of 6. 
     lis=list(); 
-    lis.append("-letters" in aString)
+    d={}
+    """lis.append("-letters" in aString)
     lis.append("-numbers" in aString); 
-    lis.append("-symbols" in aString); 
-    return lis; 
+    lis.append("-symbols" in aString); """ 
+    d["letters"]="-letters" in aString; 
+    d["numbers"]="-numbers" in aString; 
+    d["symbols"]="-symbols" in aString; 
+    return d; 
 #User Interface - this is going to be a terminal based command system. 
 #Program will always be running, better way to test functions
 
@@ -72,7 +94,7 @@ def help():
     return a; 
 
 #Main Script here.... 
-help(); 
+print(help()); 
 arg=sys.argv; #this is going to be a list
 #print(arg); #debugging
 userInput=" ".join([arg[element] for element in range(1,len(arg))])
@@ -87,6 +109,7 @@ print(userInput);
 
 if(arg[0]=="gen" and arg[1]=="username"): 
     arg=[arg[i] for i in range(2,len(arg))]
+    print("line 107: "+str(arg)); 
     astr=" ".join([element for element in arg])
     nums=judge(astr,arg); 
     print("line 71: "+str(nums));
@@ -94,14 +117,19 @@ if(arg[0]=="gen" and arg[1]=="username"):
     #note that the list is of the format [letters, numbers, symbols]
     #IF nums[0]==False, THEN numbers is a defined set... 
     letters, numbers, symbols = list(), list(), list(); 
-    if(not nums[0]): 
+    areLetters, areNumbers, areSymbols=False, False, False; 
+    """if(not nums["letters"]): 
         #defined set of letters 
         letters=arg[0]; 
-    if(not nums[1]): 
+    if(not nums["numbers"]): 
         numbers=arg[1]; 
-    if(not nums[2]): 
-        symbols=arg[2]; 
-    length=random.randint(8,10); 
+    if(not nums["symbols"]): 
+        symbols=arg[2]; """
+    
+    length=random.randint(8,10); #will be randomly generated for now... user will enter in the length though... 
+    #Now another thing you have to determine if there are letters, numbers, and symbols... 
+    print(isNumbers(arg)); 
+    print(genUsername(length, isLetters(arg), isNumbers(arg), isSymbols(arg), letters, numbers, symbols)); 
 
 
 
