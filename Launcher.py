@@ -4,13 +4,13 @@ import random
 #function to generate a username 
 #inputs: length=the length of the username, hasLetters= boolean value to indicate if a username has letters, hasNumbers=boolean value 
 #to indicate if it has numbers, hasSpecialChar=boolean value that indicates if there is any special characters
-def genUsername(length, hasLetters, hasNumbers, hasSpecialChar): 
+def genUsername(length, hasLetters, hasNumbers, hasSpecialChar, letters, numbers, specialChar): 
     return generate(length, hasLetters, hasNumbers, hasSpecialChar); 
 
-def generate(length, hasLetters, hasNumbers, hasSpecialChar): 
-    letters="abcdefghijklmnopqrstuvwxyz"+"abcdefghijklmnopqrstuvwxyz".upper(); 
-    numbers="0123456789"; 
-    specialChar="""~`!@#$%^&*()_-+={}[]\|;:'",.<>?/-*/"""; 
+
+
+def generate(length, hasLetters, hasNumbers, hasSpecialChar, letters="abcdefghijklmnopqrstuvwxyz"+"abcdefghijklmnopqrstuvwxyz".upper(),
+numbers="0123456789", specialChar="""~`!@#$%^&*()_-+={}[]\|;:'",.<>?/-*/"""): 
     username=str()
     for i in range(length): 
         r=random.randint(0,2); 
@@ -27,3 +27,5 @@ def generate(length, hasLetters, hasNumbers, hasSpecialChar):
     #function to generate a random password 
     def genPassword(length,hasLetters, hasNumbers, hasSpecialChar): 
         return generate(length, hasLetters, hasNumbers, hasSpecialChar); 
+
+#print(genUsername(8,True, True, False)) 
