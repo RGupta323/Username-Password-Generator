@@ -54,6 +54,12 @@ def judge(aString,arg):
 # List of commands that the program uses 
 def help(): 
     a="""The following list of commands is below: 
+        IMPORTANT NOTE: ALL COMMANDS IF BEING EXECUTED THROUGH WINDOWS MUST HAVE: python C:/..../Main.py "gen username ...." 
+        THIS IS EXTREMELY IMPORTANT. 
+        THE WINDOWS POWERSHELL MUST BE EXECUTED FROM THE DIRECTORY IN WHICH PYTHON IS DOWNLOADED THEN TYPE: python 
+        AFTER PYTHON YOU INPUT THE FILE IN WHICH MAIN.py OF THIS PROJECT IS STORED 
+        THEN AS A STRING INPUT THE TERMINAL BASED COMMAND 
+
         Generate Username: 
             To generate a random username with letters(a-z,A-Z), numbers(0-9), and symbols: gen username 
             to generate a random username with no letters: gen username -numbers -symbols 
@@ -99,7 +105,8 @@ arg=sys.argv; #this is going to be a list
 #print(arg); #debugging
 userInput=" ".join([arg[element] for element in range(1,len(arg))])
 arg=[arg[i] for i in range(1,len(arg))]
-print(arg); 
+print(arg);
+arg=arg[0].split(" ");  
 print(userInput); 
  
 userInput=" ".join([arg[i] for i in range(1,len(arg))])
